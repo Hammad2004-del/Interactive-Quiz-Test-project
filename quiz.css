@@ -1,0 +1,55 @@
+h1 {
+    height: 250px;
+    width: 250px;
+    justify-content: center;
+    text-align: center;
+    color: color-contrast(background-color, #fff, #000); /* Contrasting color for h1 heading */
+    font-size: 36px; /* Increased font size for better readability */
+    font-weight: bold; /* Bold font for headings */
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* Added text shadow */
+}
+body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to bottom, #FFC107, #FFA07A, #FF69B4); /* Complex gradient background */
+    background-size: 100% 300px;
+    background-position: 0% 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.quiz-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 20px; /* Increased border radius for a softer look */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 500px; /* Increased width for better content display */
+    text-align: center;
+    border: 1px solid #ddd; /* Light gray border */
+    transform: perspective(1000px) rotateY(0deg); /* Added 3D rotation */
+}
+.btn-grp {
+    margin-top: 20px; /* Increased margin for better spacing */
+}
+
+button {
+    background-color: #4CAF50; /* Green color for buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Increased padding for better button size */
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Added transition effect */
+    animation: spin 2s infinite; /* Added spin animation */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Added box shadow */
+}
+button:hover {
+    background-color: #3e8e41; /* Darker green color on hover */
+    transform: scale(1.1); /* Added scale effect on hover */
+}
+
+#result-container {
+    display: none;
+}
