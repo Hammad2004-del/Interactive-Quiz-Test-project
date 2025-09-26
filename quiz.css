@@ -57,7 +57,18 @@ button:hover {
     transform: scale(1.1);
 }
 
+/* Result box hidden by default */
 #result-container {
     display: none;
 }
 
+/* Correct and wrong answer styles */
+.correct {
+    background-color: #28a745 !important; /* Bright green */
+    color: white;
+}
+
+.wrong {
+    background-color: #dc3545 !important; /* Bright red */
+    color: white;
+}
