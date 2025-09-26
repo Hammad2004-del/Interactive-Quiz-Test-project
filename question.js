@@ -104,18 +104,22 @@ const startButton = document.getElementById('start-btn');
 const startContainer = document.getElementById('start-container');
 const quizContainer = document.getElementById('quiz-container');
 
+// Start the quiz
 function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
     nextButton.style.display = 'none';
     resultContainer.style.display = 'none';
+    scoreElement.innerText = `Score: ${score}`;
     showQuestion();
 }
 
+// Show current question and answers
 function showQuestion(){
     resetState();
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.innerText = currentQuestion.question;
+
     currentQuestion.answers.forEach(answer =>{
         const button = document.createElement('button');
         button.innerText = answer.text;
@@ -128,6 +132,7 @@ function showQuestion(){
     });
 }
 
+// Reset answer buttons and hide next button
 function resetState(){
     nextButton.style.display = 'none';
     while(answerButtonsElement.firstChild){
@@ -135,22 +140,29 @@ function resetState(){
     }
 }
 
+// Handle answer selection
 function selectAnswer(e){
     const selectedButton = e.target;
-    const correct = selectedButton.dataset.correct;
+    const correct = selectedButton.dataset.correct === "true"; // ensure boolean
     if(correct){
         score++;
     }
+    scoreElement.innerText = `Score: ${score}`;
+
+    // Apply correct/wrong styles and disable all buttons
     Array.from(answerButtonsElement.children).forEach(button =>{
-        setStatusClass(button, button.dataset.correct);
+        setStatusClass(button, button.dataset.correct === "true");
+        button.disabled = true;
     });
-    if(currentQuestionIndex < questions.length-1){
+
+    if(currentQuestionIndex < questions.length - 1){
         nextButton.style.display = 'block';
-    }else{
+    } else {
         showResults();
     }
 }
 
+// Apply green/red styling
 function setStatusClass(element, correct){
     clearStatusClass(element);
     if(correct){
@@ -160,16 +172,26 @@ function setStatusClass(element, correct){
     }
 }
 
+// Clear previous styling
 function clearStatusClass(element){
     element.classList.remove('correct');
     element.classList.remove('wrong');
 }
 
+// Show final results and restart option
 function showResults(){
-    questionElement.innerText = `You scored ${score} out of ${questions.length}!`;
+    quizContainer.style.display = 'none';
     resultContainer.style.display = 'block';
-    nextButton.style.display = 'none';
-    resetState();
+    resultContainer.innerHTML = `
+        <h2>You scored ${score} out of ${questions.length}!</h2>
+        <button id="restart-btn">Restart Quiz</button>
+    `;
+
+    // Add restart listener dynamically
+    document.getElementById('restart-btn').addEventListener('click', () => {
+        startContainer.style.display = 'block';  // show start screen
+        resultContainer.style.display = 'none';  // hide results
+    });
 }
 
 // Event Listeners
@@ -178,9 +200,7 @@ nextButton.addEventListener('click', () =>{
     showQuestion();
 });
 
-restartButton.addEventListener('click', startQuiz);
-
-// NEW: Start button logic
+// Start button logic
 startButton.addEventListener('click', () => {
     startContainer.style.display = 'none';   // hide start screen
     quizContainer.style.display = 'block';   // show quiz
